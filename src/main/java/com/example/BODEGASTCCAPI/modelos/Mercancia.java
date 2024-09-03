@@ -1,7 +1,6 @@
 package com.example.BODEGASTCCAPI.modelos;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -15,12 +14,12 @@ public class Mercancia {
     private UUID iup;
     //volumen
     @Column(name = "volumen", nullable = false, unique = false)
-    private Double volumen;
+    private Double volumen; //Solo se aceptan numeros positivos
     //peso
-    private Double peso;
+    private Double peso; //Solo se aceptan numeros positivos
     //nombre
     @Column(name = "nombre_mercancia", nullable = false, unique = false, length = 50)
-    private String nombre;
+    private String nombre; //Maximo 50 caracteres y solo se aceptan letras y espacios
     //tipoDestinatario
     @Column(name = "tipo_destinatario", nullable = false,  length = 50)
     private String tipoDestinatario;
@@ -34,7 +33,7 @@ public class Mercancia {
     //remitente
     //zonaBodega
     //fechaIngreso
-    private LocalDate fechaIngreso;
+    private LocalDate fechaIngreso; //Fecha ingreso no puede ser posterior a la fecha salida
     //fechaSalida
     private LocalDate fechaSalida;
 
