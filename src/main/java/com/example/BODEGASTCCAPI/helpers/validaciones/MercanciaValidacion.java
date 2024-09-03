@@ -1,7 +1,10 @@
 package com.example.BODEGASTCCAPI.helpers.validaciones;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 
+@Component
 public class MercanciaValidacion {
 
     public boolean validarVolumen(Double mercanciaVolumen){
