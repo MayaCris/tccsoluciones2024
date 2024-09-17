@@ -13,19 +13,19 @@ public class ZonaBodega {
     private Long idZona;
     //nombreZona
     @Column(name = "nombre_zona", nullable = false, length = 50)
-    private String nombreZona;
+    private String nombreZona; //Solo se aceptan letras y espacios y maximo 50 caracteres
     //capacidadMaximaVolumen
     @Column(name = "capacidad_maxima_volumen", nullable = false)
-    private Double capacidadMaximaVolumen;
+    private Double capacidadMaximaVolumen; //Solo se aceptan numeros positivos
     //capacidadMaximaPeso
     @Column(name = "capacidad_maxima_peso", nullable = false)
-    private Double capacidadMaximaPeso;
+    private Double capacidadMaximaPeso; //Solo se aceptan numeros positivos
     //capacidadVolumenOcupado
     @Column(name = "capacidad_volumen_ocupado", nullable = false)
-    private Double capacidadVolumenOcupado;
+    private Double capacidadVolumenOcupado; //Solo se aceptan numeros positivos
     //capacidadPesoOcupado
     @Column(name = "capacidad_peso_ocupado", nullable = false)
-    private Double capacidadPesoOcupado;
+    private Double capacidadPesoOcupado; //Solo se aceptan numeros positivos
 
     public ZonaBodega() {
     }

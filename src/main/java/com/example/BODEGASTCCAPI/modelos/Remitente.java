@@ -13,23 +13,23 @@ public class Remitente {
 
     //nombres
     @Column(name = "nombres", nullable = false, length = 50)
-    private String nombres;
+    private String nombres; //Solo se aceptan letras y espacios
 
     //depto
     @Column(name = "departamento", nullable = false, length = 50)
-    private String departamento;
+    private String departamento; //Solo se aceptan letras y espacios y maximo 50 caracteres
 
     //municipio
     @Column(name = "municipio", nullable = false, length = 50)
-    private String municipio;
+    private String municipio; //Solo se aceptan letras y espacios y maximo 50 caracteres
 
     //direccion
     @Column(name = "direccion", nullable = false, length = 50)
-    private String direccion;
+    private String direccion; //Maximo 50 caracteres
 
     //metodopago
     @Column(name = "metodo_pago", nullable = false, length = 50)
-    private String metodoPago;
+    private String metodoPago; //Solo se aceptan letras y espacios y maximo 50 caracteres
 
 
     public Remitente() {

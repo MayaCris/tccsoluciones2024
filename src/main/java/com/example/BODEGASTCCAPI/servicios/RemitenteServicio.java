@@ -1,5 +1,7 @@
 package com.example.BODEGASTCCAPI.servicios;
 
+import com.example.BODEGASTCCAPI.helpers.mensajes.Mensaje;
+import com.example.BODEGASTCCAPI.helpers.validaciones.RemitenteValidacion;
 import com.example.BODEGASTCCAPI.modelos.Remitente;
 import com.example.BODEGASTCCAPI.repositorios.IRemitenteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,31 @@ public class RemitenteServicio {
 
     @Autowired
     IRemitenteRepositorio remitenteRepositorio;
+    @Autowired
+    RemitenteValidacion remitenteValidacion;
+
     //Guardar
-    public Remitente almacenarRemitente(Remitente datosRemitente){
-        return remitenteRepositorio.save(datosRemitente);
+    public Remitente almacenarRemitente(Remitente datosRemitente) throws Exception {
+        try {
+            if (!this.remitenteValidacion.validarNombre(datosRemitente.getNombres())){
+                throw new Exception(Mensaje.NOMBRE_INVALIDO.getMensaje());
+            }
+            if (!this.remitenteValidacion.validarDepartamento(datosRemitente.getDepartamento())){
+                throw new Exception (Mensaje.DEPARTAMENTO_INVALIDO.getMensaje());
+            }
+            if (!this.remitenteValidacion.validarMunicipio(datosRemitente.getMunicipio())){
+                throw new Exception(Mensaje.MUNICIPIO_INVALIDO.getMensaje());
+            }
+            if (!this.remitenteValidacion.validarDireccion(datosRemitente.getDireccion())){
+                throw new Exception(Mensaje.DIRECCION_INVALIDA.getMensaje());
+            }
+            if (!this.remitenteValidacion.validarMetodoPago(datosRemitente.getMetodoPago())){
+                throw new Exception(Mensaje.METODO_PAGO_INVALIDO.getMensaje());
+            }
+            return remitenteRepositorio.save(datosRemitente);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     //Buscar todos los remitentes

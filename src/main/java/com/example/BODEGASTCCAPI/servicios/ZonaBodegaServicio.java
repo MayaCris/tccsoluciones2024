@@ -1,5 +1,7 @@
 package com.example.BODEGASTCCAPI.servicios;
 
+import com.example.BODEGASTCCAPI.helpers.mensajes.Mensaje;
+import com.example.BODEGASTCCAPI.helpers.validaciones.ZonaBodegaValidacion;
 import com.example.BODEGASTCCAPI.modelos.ZonaBodega;
 import com.example.BODEGASTCCAPI.repositorios.IZonaBodegaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,31 @@ public class ZonaBodegaServicio {
 
     @Autowired
     IZonaBodegaRepositorio zonaBodegaRepositorio;
+    @Autowired
+    ZonaBodegaValidacion zonaBodegaValidacion;
 
     //Guardar
-    public ZonaBodega almacenarZonaBodega(ZonaBodega datosZonaBodega){
-        return zonaBodegaRepositorio.save(datosZonaBodega);
+    public ZonaBodega almacenarZonaBodega(ZonaBodega datosZonaBodega) throws Exception{
+        try {
+            if (!this.zonaBodegaValidacion.validarNombre(datosZonaBodega.getNombreZona())){
+                throw new Exception(Mensaje.NOMBRE_BODEGA.getMensaje());
+            }
+            if (!this.zonaBodegaValidacion.validarCapacidadMaximaVolumen(datosZonaBodega.getCapacidadMaximaVolumen())){
+                throw new Exception(Mensaje.CAPACIDAD_MAXIMA_VOLUMEN.getMensaje());
+            }
+            if (!this.zonaBodegaValidacion.validarCapacidadMaximaPeso(datosZonaBodega.getCapacidadMaximaPeso())){
+                throw new Exception(Mensaje.CAPACIDAD_MAXIMA_PESO.getMensaje());
+            }
+            if (!this.zonaBodegaValidacion.validarCapacidadVolumenOcupado(datosZonaBodega.getCapacidadVolumenOcupado())){
+                throw new Exception(Mensaje.CAPACIDAD_VOLUMEN_OCUPADO.getMensaje());
+            }
+            if (!this.zonaBodegaValidacion.validarCapacidadPesoOcupado(datosZonaBodega.getCapacidadPesoOcupado())){
+                throw new Exception(Mensaje.CAPACIDAD_PESO_OCUPADO.getMensaje());
+            }
+            return zonaBodegaRepositorio.save(datosZonaBodega);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
     //Buscar todos las zonas de bodega
     public List<ZonaBodega> buscarTodasZonasBodega(){
