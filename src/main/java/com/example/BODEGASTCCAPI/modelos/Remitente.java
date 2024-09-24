@@ -12,7 +12,7 @@ public class Remitente {
     private Long id;
 
     //nombres
-    @Column(name = "nombres", nullable = false, length = 50)
+    @Column(name = "nombres", nullable = false, length = 100)
     private String nombres; //Solo se aceptan letras y espacios
 
     //depto

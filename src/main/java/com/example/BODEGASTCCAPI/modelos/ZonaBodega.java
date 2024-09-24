@@ -12,7 +12,7 @@ public class ZonaBodega {
     @Column(name = "id_zona", nullable = false, unique = true)
     private Long idZona;
     //nombreZona
-    @Column(name = "nombre_zona", nullable = false, length = 50)
+    @Column(name = "nombre_zona", nullable = false, length = 100)
     private String nombreZona; //Solo se aceptan letras y espacios y maximo 50 caracteres
     //capacidadMaximaVolumen
     @Column(name = "capacidad_maxima_volumen", nullable = false)

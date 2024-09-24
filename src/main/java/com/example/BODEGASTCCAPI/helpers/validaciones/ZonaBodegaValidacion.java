@@ -9,7 +9,7 @@ public class ZonaBodegaValidacion {
         if (zonaBodegaNombre.length() > 50){
             return false;
         }
-        else return(!zonaBodegaNombre.matches("^[a-zA-Z\\s]+$"));
+        else return(zonaBodegaNombre.matches("^[a-zA-Z\\s]+$"));
     }
 
     public boolean validarCapacidadMaximaVolumen(Double zonaBodegaCapacidadMaximaVolumen){

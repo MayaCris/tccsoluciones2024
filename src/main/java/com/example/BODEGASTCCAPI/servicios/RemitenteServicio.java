@@ -29,7 +29,7 @@ public class RemitenteServicio {
             if (!this.remitenteValidacion.validarMunicipio(datosRemitente.getMunicipio())){
                 throw new Exception(Mensaje.MUNICIPIO_INVALIDO.getMensaje());
             }
-            if (!this.remitenteValidacion.validarDireccion(datosRemitente.getDireccion())){
+            if (this.remitenteValidacion.validarDireccion(datosRemitente.getDireccion())){
                 throw new Exception(Mensaje.DIRECCION_INVALIDA.getMensaje());
             }
             if (!this.remitenteValidacion.validarMetodoPago(datosRemitente.getMetodoPago())){

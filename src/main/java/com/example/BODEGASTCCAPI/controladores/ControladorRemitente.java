@@ -1,7 +1,7 @@
 package com.example.BODEGASTCCAPI.controladores;
 
-import com.example.BODEGASTCCAPI.modelos.Mercancia;
-import com.example.BODEGASTCCAPI.servicios.MercanciaServicio;
+import com.example.BODEGASTCCAPI.modelos.Remitente;
+import com.example.BODEGASTCCAPI.servicios.RemitenteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,28 +9,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/soluciontcc/v1/mercancia")
-public class ControladorMercancia {
-    //Llamar al servicio para
-    //Inyectar una dependencia al servicio
+@RequestMapping("/soluciontcc/v1/remitente")
+public class ControladorRemitente {
 
     @Autowired
-    MercanciaServicio mercanciaServicio;
-
-    //Llamar cada uno de los metodos disponibles en el servicio
+    RemitenteServicio remitenteServicio;
 
     @PostMapping()
-    public ResponseEntity<?> almacenarMercancia(@RequestBody Mercancia datosMercancia){
+    public ResponseEntity<?> almacenarRemitente(@RequestBody Remitente datosRemitente){
         try{
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(this.mercanciaServicio.almacenarMercancia(datosMercancia));
+                    .body(this.remitenteServicio.almacenarRemitente(datosRemitente));
 
         } catch (Exception e) {
-
             HashMap<String, Object> mensajeRespuesta = new HashMap<>();
             mensajeRespuesta.put("mensaje", e.getMessage());
 
@@ -39,6 +35,4 @@ public class ControladorMercancia {
                     .body(mensajeRespuesta);
         }
     }
-
-
 }
