@@ -19,8 +19,7 @@ public class MercanciaValidacion {
         if (mercanciaNombre.length() > 50){
             return false;
         }
-        else return(!mercanciaNombre.matches("^[a-zA-Z\\s]+$"));
-
+        else return(mercanciaNombre.matches("^[a-zA-Z\\s]+$"));
     }
 
     public boolean validarFechaIngreso(LocalDate fechaIngreso, LocalDate fechaSalida){

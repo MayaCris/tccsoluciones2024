@@ -29,10 +29,10 @@ public class ZonaBodegaServicio {
             if (!this.zonaBodegaValidacion.validarCapacidadMaximaPeso(datosZonaBodega.getCapacidadMaximaPeso())){
                 throw new Exception(Mensaje.CAPACIDAD_MAXIMA_PESO.getMensaje());
             }
-            if (!this.zonaBodegaValidacion.validarCapacidadVolumenOcupado(datosZonaBodega.getCapacidadVolumenOcupado())){
+            if (!this.zonaBodegaValidacion.validarCapacidadVolumenOcupado(datosZonaBodega.getCapacidadVolumenOcupado(), datosZonaBodega.getCapacidadMaximaVolumen())){
                 throw new Exception(Mensaje.CAPACIDAD_VOLUMEN_OCUPADO.getMensaje());
             }
-            if (!this.zonaBodegaValidacion.validarCapacidadPesoOcupado(datosZonaBodega.getCapacidadPesoOcupado())){
+            if (!this.zonaBodegaValidacion.validarCapacidadPesoOcupado(datosZonaBodega.getCapacidadPesoOcupado(), datosZonaBodega.getCapacidadMaximaPeso())){
                 throw new Exception(Mensaje.CAPACIDAD_PESO_OCUPADO.getMensaje());
             }
             return zonaBodegaRepositorio.save(datosZonaBodega);

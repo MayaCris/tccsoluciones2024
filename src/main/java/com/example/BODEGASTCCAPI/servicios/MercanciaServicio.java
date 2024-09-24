@@ -26,13 +26,16 @@ public class MercanciaServicio {
         try {
             //aplicar validaciones a los datos recibidos
             //Si sale bien la validacion llamo al repositorio para guardar los datos
+            if (!this.mercanciaValidacion.validarNombre(datosMercancia.getNombre())){
+                throw new Exception(Mensaje.NOMBRE_INVALIDO.getMensaje());
+            }
             if (!this.mercanciaValidacion.validarPeso(datosMercancia.getPeso())){
                 throw new Exception(Mensaje.PESO_NEGATIVO.getMensaje());
             }
             if (!this.mercanciaValidacion.validarVolumen(datosMercancia.getVolumen())){
                 throw new Exception(Mensaje.VOLUMEN_NEGATIVO.getMensaje());
             }
-            if (!this.mercanciaValidacion.validarFechaIngreso(datosMercancia.getFechaIngreso(), LocalDate.now())){
+            if (!this.mercanciaValidacion.validarFechaIngreso(datosMercancia.getFechaIngreso(), datosMercancia.getFechaSalida())){
                 throw new Exception(Mensaje.FECHA_INGRESO_INVALIDA.getMensaje());
             }
             return mercanciaRepositorio.save(datosMercancia);

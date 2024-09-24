@@ -26,15 +26,15 @@ public class ZonaBodegaValidacion {
         else return true;
     }
 
-    public boolean validarCapacidadVolumenOcupado(Double zonaBodegaCapacidadVolumenOcupado){
-        if(zonaBodegaCapacidadVolumenOcupado < 0){
+    public boolean validarCapacidadVolumenOcupado(Double zonaBodegaCapacidadVolumenOcupado, Double zonaBodegaCapacidadMaximaVolumen){
+        if(zonaBodegaCapacidadVolumenOcupado < 0 || zonaBodegaCapacidadVolumenOcupado > zonaBodegaCapacidadMaximaVolumen){
             return false;
         }
         else return true;
     }
 
-    public boolean validarCapacidadPesoOcupado(Double zonaBodegaCapacidadPesoOcupado){
-        if(zonaBodegaCapacidadPesoOcupado < 0) {
+    public boolean validarCapacidadPesoOcupado(Double zonaBodegaCapacidadPesoOcupado, Double zonaBodegaCapacidadMaximaPeso){
+        if(zonaBodegaCapacidadPesoOcupado < 0 || zonaBodegaCapacidadPesoOcupado > zonaBodegaCapacidadMaximaPeso){
             return false;
         }
         else return true;
