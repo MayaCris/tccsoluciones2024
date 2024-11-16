@@ -1,5 +1,6 @@
 package com.example.BODEGASTCCAPI.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -30,12 +31,15 @@ public class Mercancia {
     private String departamento;
     private String ciudad;
     private String direccion;
-    //remitente
-    //zonaBodega
     //fechaIngreso
     private LocalDate fechaIngreso; //Fecha ingreso no puede ser posterior a la fecha salida
     //fechaSalida
     private LocalDate fechaSalida;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_zona_bodega", referencedColumnName = "id_zona")
+    @JsonBackReference
+    private ZonaBodega zonaBodega;
 
     public Mercancia() {
     }

@@ -3,7 +3,10 @@ package com.example.BODEGASTCCAPI.servicios;
 import com.example.BODEGASTCCAPI.helpers.mensajes.Mensaje;
 import com.example.BODEGASTCCAPI.helpers.validaciones.MercanciaValidacion;
 import com.example.BODEGASTCCAPI.modelos.Mercancia;
+import com.example.BODEGASTCCAPI.modelos.dto.MercanciaDTO;
+import com.example.BODEGASTCCAPI.modelos.mapas.IMapaMercancia;
 import com.example.BODEGASTCCAPI.repositorios.IMercanciaRepositorio;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -21,33 +24,63 @@ public class MercanciaServicio {
     @Autowired
     MercanciaValidacion mercanciaValidacion;
 
+    @Autowired
+    IMapaMercancia mapaMercancia;
+
     //guardar
-    public Mercancia almacenarMercancia(Mercancia datosMercancia) throws Exception {
-        try {
+    public Mercancia almacenarMercancia(Mercancia datosMercancia) throws ValidationException {
+
             //aplicar validaciones a los datos recibidos
             //Si sale bien la validacion llamo al repositorio para guardar los datos
             if (!this.mercanciaValidacion.validarNombre(datosMercancia.getNombre())){
-                throw new Exception(Mensaje.NOMBRE_INVALIDO.getMensaje());
+                throw new ValidationException(Mensaje.NOMBRE_INVALIDO.getMensaje());
             }
             if (!this.mercanciaValidacion.validarPeso(datosMercancia.getPeso())){
-                throw new Exception(Mensaje.PESO_NEGATIVO.getMensaje());
+                throw new ValidationException(Mensaje.PESO_NEGATIVO.getMensaje());
             }
             if (!this.mercanciaValidacion.validarVolumen(datosMercancia.getVolumen())){
-                throw new Exception(Mensaje.VOLUMEN_NEGATIVO.getMensaje());
+                throw new ValidationException(Mensaje.VOLUMEN_NEGATIVO.getMensaje());
             }
             if (!this.mercanciaValidacion.validarFechaIngreso(datosMercancia.getFechaIngreso(), datosMercancia.getFechaSalida())){
-                throw new Exception(Mensaje.FECHA_INGRESO_INVALIDA.getMensaje());
+                throw new ValidationException(Mensaje.FECHA_INGRESO_INVALIDA.getMensaje());
             }
             return mercanciaRepositorio.save(datosMercancia);
-            }
-        catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
     }
 
+
+
+    public MercanciaDTO almacenarMercanciaDTO(Mercancia datosMercancia) throws ValidationException {
+
+        //aplicar validaciones a los datos recibidos
+        //si sale bien la validacion llamo al repo para guardar los datos
+        if (!this.mercanciaValidacion.validarNombre(datosMercancia.getNombre())){
+            throw new ValidationException(Mensaje.NOMBRE_INVALIDO.getMensaje());
+        }
+
+        if(!this.mercanciaValidacion.validarPeso(datosMercancia.getPeso())){
+            throw new ValidationException(Mensaje.PESO_NEGATIVO.getMensaje());
+        }
+
+        if(!this.mercanciaValidacion.validarVolumen(datosMercancia.getVolumen())){
+            throw new ValidationException(Mensaje.VOLUMEN_NEGATIVO.getMensaje());
+        }
+
+        if(!this.mercanciaValidacion.validarFechaIngreso(datosMercancia.getFechaIngreso(), LocalDate.now())){
+            throw new ValidationException(Mensaje.FECHA_INGRESO_INVALIDA.getMensaje());
+        }
+        //TODO AVERIGUAR SI LA ZONA DONDE LA MERCANCIA SE VA A GUARDAR TIENE ESPACIO DISPONIBLE
+        return this.mapaMercancia.mapearMercancia(this.mercanciaRepositorio.save(datosMercancia));
+
+    }
+
+
     //buscar todos
-    public List<Mercancia> buscarTodasMercancias(){
-        return mercanciaRepositorio.findAll();
+    public List<MercanciaDTO> buscarTodasMercancias() throws Exception{
+        try{
+            return this.mapaMercancia.mapearListaMercancias(mercanciaRepositorio.findAll());
+        }catch (Exception error){
+            throw new Exception(error.getMessage());
+        }
     }
 
     //buscar por id
@@ -74,7 +107,6 @@ public class MercanciaServicio {
             return false;
         }
     }
-
 
 
 }

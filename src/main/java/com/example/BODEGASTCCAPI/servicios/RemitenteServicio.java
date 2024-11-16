@@ -3,6 +3,8 @@ package com.example.BODEGASTCCAPI.servicios;
 import com.example.BODEGASTCCAPI.helpers.mensajes.Mensaje;
 import com.example.BODEGASTCCAPI.helpers.validaciones.RemitenteValidacion;
 import com.example.BODEGASTCCAPI.modelos.Remitente;
+import com.example.BODEGASTCCAPI.modelos.dto.RemitenteDTO;
+import com.example.BODEGASTCCAPI.modelos.mapas.IMapaRemitente;
 import com.example.BODEGASTCCAPI.repositorios.IRemitenteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class RemitenteServicio {
 
     @Autowired
     IRemitenteRepositorio remitenteRepositorio;
+    @Autowired
+    IMapaRemitente mapaRemitente;
     @Autowired
     RemitenteValidacion remitenteValidacion;
 
@@ -42,8 +46,12 @@ public class RemitenteServicio {
     }
 
     //Buscar todos los remitentes
-    public List<Remitente> buscarTodosRemitentes(){
-        return remitenteRepositorio.findAll();
+    public List<RemitenteDTO> buscarTodosRemitentes() throws Exception{
+        try{
+            return this.mapaRemitente.mapearListaRemitentes(remitenteRepositorio.findAll());
+        }catch (Exception error){
+            throw new Exception(error.getMessage());
+        }
     }
 
     //Buscar por id

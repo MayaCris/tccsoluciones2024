@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ZonaBodegaServicio {
@@ -20,6 +21,15 @@ public class ZonaBodegaServicio {
     //Guardar
     public ZonaBodega almacenarZonaBodega(ZonaBodega datosZonaBodega) throws Exception{
         try {
+            if (datosZonaBodega.getCapacidadPesoOcupado()== null){
+                datosZonaBodega.setCapacidadPesoOcupado(0.0);
+            }
+            if (datosZonaBodega.getCapacidadVolumenOcupado()== null){
+                datosZonaBodega.setCapacidadVolumenOcupado(0.0);
+            }
+            if (Objects.equals(datosZonaBodega.getNombreZona(), buscarTodasZonasBodega().stream().filter(zonaBodega -> zonaBodega.getNombreZona().equals(datosZonaBodega.getNombreZona())).findFirst().get().getNombreZona())){
+                throw new Exception(Mensaje.NOMBRE_BODEGA_DUPLICADO.getMensaje());
+            }
             if (!this.zonaBodegaValidacion.validarNombre(datosZonaBodega.getNombreZona())){
                 throw new Exception(Mensaje.NOMBRE_BODEGA.getMensaje());
             }
@@ -40,7 +50,7 @@ public class ZonaBodegaServicio {
             throw new Exception(e.getMessage());
         }
     }
-    //Buscar todos las zonas de bodega
+    //Buscar todas las zonas de bodega
     public List<ZonaBodega> buscarTodasZonasBodega(){
         return zonaBodegaRepositorio.findAll();
     }

@@ -1,6 +1,9 @@
 package com.example.BODEGASTCCAPI.modelos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "zonas_bodega")
@@ -26,6 +29,10 @@ public class ZonaBodega {
     //capacidadPesoOcupado
     @Column(name = "capacidad_peso_ocupado", nullable = false)
     private Double capacidadPesoOcupado; //Solo se aceptan numeros positivos
+
+    @OneToMany(mappedBy = "zonaBodega")
+    @JsonManagedReference
+    private List<Mercancia> mercancias;
 
     public ZonaBodega() {
     }

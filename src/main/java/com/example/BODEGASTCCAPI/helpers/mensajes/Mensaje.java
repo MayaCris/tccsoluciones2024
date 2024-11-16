@@ -15,6 +15,7 @@ public enum Mensaje {
     CAPACIDAD_MAXIMA_PESO("La capacidad maxima de peso no puede ser menor a 0"),
     CAPACIDAD_VOLUMEN_OCUPADO("La capacidad de volumen ocupado no puede ser menor a 0 ni mayor a la capacidad maxima de volumen"),
     CAPACIDAD_PESO_OCUPADO("La capacidad de peso ocupado no puede ser menor a 0 ni mayor a la capacidad maxima de peso"),
+    NOMBRE_BODEGA_DUPLICADO("Esta bodega ya existe en la base de datos"),
     ;
     private String mensaje;
 
@@ -28,6 +29,4 @@ public enum Mensaje {
     public String getMensaje() {
         return mensaje;
     }
-
-
 }
