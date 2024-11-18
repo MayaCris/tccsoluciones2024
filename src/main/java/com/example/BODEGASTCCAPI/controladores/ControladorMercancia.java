@@ -101,24 +101,10 @@ public class ControladorMercancia {
                     )
             }
     )
-    public ResponseEntity<?> LlamadoGuardarMercanciaDTO(@RequestBody Mercancia datosMercanciaEnviadosCliente){
-        try{
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(this.mercanciaServicio.almacenarMercanciaDTO(datosMercanciaEnviadosCliente));
-        }catch(ValidationException e){
-            HashMap<String, Object> mensajeRespuesta= new HashMap<>();
-            mensajeRespuesta.put("mensaje",e.getMessage());
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(mensajeRespuesta);
-        }catch (Exception e) {
-            HashMap<String, Object> mensajeRespuesta = new HashMap<>();
-            mensajeRespuesta.put("mensaje", "Ocurrió un error inesperado en el servidor");
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(mensajeRespuesta);
-        }
+    public ResponseEntity<?> guardarMercanciaDTO(@RequestBody Mercancia datosMercanciaEnviadosCliente){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.mercanciaServicio.almacenarMercanciaDTO(datosMercanciaEnviadosCliente));
     }
 
     @GetMapping()
@@ -149,16 +135,8 @@ public class ControladorMercancia {
             }
     )
     public ResponseEntity<?> LlamadoBuscarMercanciaDTO(){
-        try{
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(this.mercanciaServicio.buscarTodasMercancias());
-        }catch(Exception error){
-            HashMap<String, Object> mensajeRespuesta= new HashMap<>();
-            mensajeRespuesta.put("mensaje",error.getMessage());
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(mensajeRespuesta);
-        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.mercanciaServicio.buscarTodasMercancias());
     }
 }

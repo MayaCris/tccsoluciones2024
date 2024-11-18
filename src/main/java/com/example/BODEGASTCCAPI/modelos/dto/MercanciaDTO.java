@@ -8,16 +8,18 @@ public class MercanciaDTO {
     private String nombre;
     private String direccion;
     private LocalDate fechaIngreso;
+    private String nombreZona;
 
     public MercanciaDTO() {
     }
 
-    public MercanciaDTO(Double volumen, Double peso, String nombre, String direccion, LocalDate fechaIngreso) {
+    public MercanciaDTO(Double volumen, Double peso, String nombre, String direccion, LocalDate fechaIngreso, String nombreZona) {
         this.volumen = volumen;
         this.peso = peso;
         this.nombre = nombre;
         this.direccion = direccion;
         this.fechaIngreso = fechaIngreso;
+        this.nombreZona = nombreZona;
     }
 
     public Double getVolumen() {
@@ -58,5 +60,13 @@ public class MercanciaDTO {
 
     public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getNombreZona() {
+        return nombreZona;
+    }
+
+    public void setNombreZona(String nombreZona) {
+        this.nombreZona = nombreZona;
     }
 }

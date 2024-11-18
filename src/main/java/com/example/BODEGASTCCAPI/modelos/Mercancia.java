@@ -1,6 +1,8 @@
 package com.example.BODEGASTCCAPI.modelos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -36,15 +38,20 @@ public class Mercancia {
     //fechaSalida
     private LocalDate fechaSalida;
 
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fk_zona_bodega", referencedColumnName = "id_zona")
     @JsonBackReference
     private ZonaBodega zonaBodega;
 
+//    @Transient // Este campo no se persiste en la base de datos
+//    @JsonProperty("idZona") // Define el nombre del campo en el JSON
+//    private Long idZona;
+
     public Mercancia() {
     }
 
-    public Mercancia(UUID iup, Double volumen, Double peso, String nombre, String tipoDestinatario, String nombreDestinatario, String departamento, String ciudad, String direccion, LocalDate fechaIngreso, LocalDate fechaSalida) {
+    public Mercancia(UUID iup, Double volumen, Double peso, String nombre, String tipoDestinatario, String nombreDestinatario, String departamento, String ciudad, String direccion, LocalDate fechaIngreso, LocalDate fechaSalida, ZonaBodega zonaBodega) {
         this.iup = iup;
         this.volumen = volumen;
         this.peso = peso;
@@ -56,6 +63,7 @@ public class Mercancia {
         this.direccion = direccion;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
+        this.zonaBodega = zonaBodega;
     }
 
     public UUID getIup() {
@@ -146,5 +154,20 @@ public class Mercancia {
         this.fechaSalida = fechaSalida;
     }
 
+    public ZonaBodega getZonaBodega() {
+        return zonaBodega;
+    }
 
+    public void setZonaBodega(ZonaBodega zonaBodega) {
+        this.zonaBodega = zonaBodega;
+    }
+
+//    public Long getIdZona() {
+////        return idZona;
+//        return  zonaBodega != null ? zonaBodega.getIdZona() : null;
+//    }
+//
+//    public void setIdZona(Long idZona) {
+//        this.idZona = idZona;
+//    }
 }
