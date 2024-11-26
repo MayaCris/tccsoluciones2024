@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 public class MercanciaServicio {
-    //Los servicios contienen metodos asociados a alguna operacion en la base de datos. Generalmente están asociados a uno  o mas repositorios.
+    //Los servicios contienen métodos asociados a alguna operación en la base de datos, generalmente están asociados a uno o más repositorios.
 
     //Inyectar una dependencia al repositorio
     @Autowired
@@ -33,8 +33,6 @@ public class MercanciaServicio {
     //guardar
     public Mercancia almacenarMercancia(Mercancia datosMercancia) throws ValidationException {
         try{
-            //aplicar validaciones a los datos recibidos
-            //Si sale bien la validacion llamo al repositorio para guardar los datos
             if (!this.mercanciaValidacion.validarNombre(datosMercancia.getNombre())){
                 throw new ValidationException(Mensaje.NOMBRE_INVALIDO.getMensaje());
             }
@@ -55,7 +53,6 @@ public class MercanciaServicio {
     }
 
 
-
     public MercanciaDTO almacenarMercanciaDTO(Mercancia datosMercancia) throws ValidationException {
 
         System.out.println("datosMercancia = " +  datosMercancia);
@@ -66,8 +63,6 @@ public class MercanciaServicio {
         double pesoDisponible = this.zonaBodegaServicio.calcularPesoDisponible(datosMercancia.getZonaBodega().getIdZona());
         double pesoDespuesDeIngresarMercancia = pesoDisponible - datosMercancia.getPeso();
 
-        //aplicar validaciones a los datos recibidos
-        //si sale bien la validacion llamo al repo para guardar los datos
         if (!this.mercanciaValidacion.validarNombre(datosMercancia.getNombre())) {
             throw new ValidationException(Mensaje.NOMBRE_INVALIDO.getMensaje());
         }
@@ -84,7 +79,6 @@ public class MercanciaServicio {
             throw new ValidationException(Mensaje.FECHA_INGRESO_INVALIDA.getMensaje());
         }
 
-        //TODO AVERIGUAR SI LA ZONA DONDE LA MERCANCIA SE VA A GUARDAR TIENE ESPACIO DISPONIBLE
         if (volumenDespuesDeIngresarMercancia < 0) {
             String mensajeError = String.format(Mensaje.VOLUMEN_DISPONIBLE.getMensaje(), volumenDisponible);
             throw new ValidationException(mensajeError);
@@ -94,6 +88,10 @@ public class MercanciaServicio {
             String mensajeError = String.format(Mensaje.PESO_DISPONIBLE.getMensaje(), pesoDisponible);
             throw new ValidationException(mensajeError);
         }
+
+        this.zonaBodegaServicio.actualizarVolumenOcupado(datosMercancia.getZonaBodega().getIdZona(), datosMercancia.getVolumen());
+        this.zonaBodegaServicio.actualizarPesoOcupado(datosMercancia.getZonaBodega().getIdZona(), datosMercancia.getPeso());
+
         return this.mapaMercancia.mapearMercancia(this.mercanciaRepositorio.save(datosMercancia));
 
     }

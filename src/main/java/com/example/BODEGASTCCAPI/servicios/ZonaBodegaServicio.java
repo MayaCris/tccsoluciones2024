@@ -63,7 +63,19 @@ public class ZonaBodegaServicio {
         }else {
         throw new ValidationException("El id no puede ser nulo");
         }
-}
+    }
+
+    public void actualizarVolumenOcupado(Long idZona, Double volumen){
+        ZonaBodega zonaBodega = buscarZonaBodegaPorId(idZona);
+        zonaBodega.setCapacidadVolumenOcupado(zonaBodega.getCapacidadVolumenOcupado() + volumen);
+        zonaBodegaRepositorio.save(zonaBodega);
+    }
+
+    public void actualizarPesoOcupado(Long idZona, Double peso){
+        ZonaBodega zonaBodega = buscarZonaBodegaPorId(idZona);
+        zonaBodega.setCapacidadPesoOcupado(zonaBodega.getCapacidadPesoOcupado() + peso);
+        zonaBodegaRepositorio.save(zonaBodega);
+    }
 
     //Modificar
     public ZonaBodega modificarZonaBodega(Long id, ZonaBodega datosNuevosZonaBodega){

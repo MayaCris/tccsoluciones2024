@@ -18,6 +18,7 @@ public enum Mensaje {
     NOMBRE_BODEGA_DUPLICADO("Esta bodega ya existe en la base de datos"),
     VOLUMEN_DISPONIBLE("El volumen disponible es de %.1f, no se puede ingresar la mercancía porque excede la capacidad."),
     PESO_DISPONIBLE("El peso disponible es de %.1f, no se puede ingresar la mercancía porque excede la capacidad."),
+    USUARIO_EXISTENTE("Ya fue creado un usuario con este correo"),
     ;
     private String mensaje;
 

@@ -17,6 +17,8 @@ public interface IMapaMercancia {
             @Mapping(source = "nombre", target = "nombre"),
             @Mapping(source = "direccion", target = "direccion"),
             @Mapping(source = "fechaIngreso", target = "fechaIngreso"),
+            @Mapping(source = "zonaBodega.nombreZona", target = "nombreZona")
+
     })
     public MercanciaDTO mapearMercancia(Mercancia mercancia);
     public List<MercanciaDTO> mapearListaMercancias(List<Mercancia> listaMercancia);

@@ -13,16 +13,16 @@ public class BodegastccapiApplication {
 		SpringApplication.run(BodegastccapiApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")  // Permite todas las rutas
-						.allowedOrigins("*")  // Permite cualquier origen
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Métodos permitidos
-						.allowedHeaders("*");  // Permite todos los encabezados
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				registry.addMapping("/**")  // Permite todas las rutas
+//						.allowedOrigins("*")  // Permite cualquier origen
+//						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Métodos permitidos
+//						.allowedHeaders("*");  // Permite todos los encabezados
+//			}
+//		};
+//	}
 }
